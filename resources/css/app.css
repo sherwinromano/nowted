@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@font-face {
+    font-family: "source-sans-regular";
+    src: url("/public/font/SourceSansPro-Regular.otf") format("opentype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "source-sans-semibold";
+    src: url("/public/font/SourceSansPro-Semibold.otf") format("opentype");
+    font-weight: normal;
+}
+
+* {
+    font-family: "source-sans-regular", sans-serif;
+}
+
+.source-sans-semibold {
+    font-family: "source-sans-semibold", sans-serif;
+}
