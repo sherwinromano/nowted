@@ -1,6 +1,6 @@
-<x-index-layout>
+<x-trash-layout>
     <x-note-list 
-        title="All notes" 
+        title="Trash" 
         :datas="$notes"
     />
     <div class="flex flex-col text-white gap-2.5 justify-center items-center w-full">
@@ -14,4 +14,4 @@
             <h1 class="source-sans-semibold text-2xl">Select a note to view</h1>
             <p class="text-center text-[#a3a3a3] w-2/3">Choose a note from the list on the left to view its contents, or create a new note to add to your collection.</p>    
     </div>
-</x-index-layout>
+</x-trash-layout>
