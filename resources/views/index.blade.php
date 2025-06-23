@@ -1,6 +1,6 @@
 <x-index-layout>
     <x-note-list 
-        title="All notes" 
+        :title="$note_title" 
         :datas="$notes"
     />
     <div class="flex flex-col text-white gap-2.5 justify-center items-center w-full">

@@ -24,3 +24,7 @@
 .source-sans-semibold {
     font-family: "source-sans-semibold", sans-serif;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }

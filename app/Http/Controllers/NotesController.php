@@ -3,26 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notes;
-use App\Models\Favorites;
 use Illuminate\Http\Request;
 
 class NotesController extends Controller
 {
+    protected $notes;
+    protected $note_title;
+    
+    public function __construct()
+    {
+        $this->notes = Notes::where('added_trash', 0)
+                              ->where('added_archived', 0)  
+                              ->orderBy('created_at', 'desc')
+                              ->get();
+        $this->note_title = "All notes";
+    }
+
     public function index() {
-        $notes = Notes::orderBy('created_at', 'desc')->get();
-        return view('index', ["notes" => $notes]);
+        return view('index', ["notes" => $this->notes, "note_title" => $this->note_title]);
     }
 
     public function show($id) {
-        $notes = Notes::orderBy('created_at', 'desc')->get();
         $note = Notes::findOrFail($id);
-        $title = "All notes";
+
         
-        return view('show-note', ["notes" => $notes, "note" => $note, "title" => $title]);
+        return view('show-note', ["notes" => $this->notes, "note" => $note, "note_title" => $this->note_title]);
     }
 
     public function create() {
-        return view('new-note');
+        return view('note-form', ["notes" => $this->notes, "note_title" => $this->note_title]);
+    }
+
+    public function edit($id) {
+        $note = Notes::findOrFail($id);
+
+        return view('edit-form', [
+            "note" => $note, 
+            "notes" => $this->notes, 
+            "note_title" => $this->note_title,
+        ]);
+    }
+
+    public function update(Request $request, $id) {
+        $validated = $request->validate([
+            'title' => 'required|string|',
+            'body' => 'required|string',
+        ]);
+
+        
+        $note = Notes::findOrFail($id);
+
+        $note->title = $validated['title'];
+        $note->body = $validated['body'];
+
+        $note->save();
+
+        return redirect()->route('notes.show', $id);
     }
 
     public function store(Request $request) {
@@ -35,26 +71,9 @@ class NotesController extends Controller
         return redirect()->route('notes.index');
     }
 
-    public function destroy($id) {
-        $note = Notes::findOrFail($id);
-        $note->delete();
+    public function destroy($note_id) {
+        Notes::where('id', $note_id)->delete();
         
         return redirect()->route('notes.index');
-    }
-
-    public function addToFavorites($id) {
-        $note = Notes::findOrFail($id);
-
-        // Insert new value in favorites table
-        Favorites::create([
-            'title' => $note->title,
-            'body' => $note->body,
-            'note_id' => $note->id,
-        ]); 
-
-        $note->added_favorite = true;
-        $note->save();
-        
-        return redirect()->route('notes.show', $id);
     }
 }

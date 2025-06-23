@@ -28,6 +28,21 @@ document.addEventListener('click', (e) => {
     }
 });
 
-console.log(noteBodies.innerText.split());
+const deleteBtn = document.querySelector('#delete-btn');
+const deleteBtnAccept = document.querySelector('#delete-btn-accept');
+const cancelBtn = document.querySelector('#cancel-btn');
+const modal = document.querySelector('#modal');
 
+deleteBtn.addEventListener('click', () => {
+    modal.classList.replace('hidden', 'flex');
+    dropdownList.classList.replace('flex', 'hidden');
+});
+
+deleteBtnAccept.addEventListener('click', () => {
+    modal.classList.replace('flex', 'hidden');
+})
+
+cancelBtn.addEventListener('click', () => {
+    modal.classList.replace('flex', 'hidden');
+})
 

@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Favorites extends Model
+class Archives extends Model
 {
     protected $fillable = ['title', 'body', 'note_id'];
-
 }
