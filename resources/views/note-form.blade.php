@@ -1,10 +1,10 @@
 <x-note-form-layout>
-    <x-note-list 
-        :title="$note_title" 
-        :datas="$notes"
-    />
-    <div class="flex flex-col p-8 w-full gap-8">
-        <h1 class="text-white font-bold text-2xl">New note</h1>
+    <x-slot name="noteList">
+        <x-note-list :title="$note_title" :datas="$notes" containerClass="flex flex-col gap-2 h-full mt-4" />
+    </x-slot>
+    <x-note-list :title="$note_title" :datas="$notes" containerClass="xs:hidden md:flex flex-col gap-7 px-5 py-7 bg-[#1c1c1c] w-[50%]" />
+    <div class="flex flex-col xs:p-5 md:p-8 w-full xs:gap-4 md:gap-8">
+        <h1 class="text-white font-bold xs:text-[1.3rem] sm:text-2xl">New note</h1>
         <form action="{{ route('notes.store') }}" method="POST" class="flex flex-col h-full justify-between">
             @csrf
             <div class="flex flex-col gap-2">
@@ -20,7 +20,7 @@
                     </ul>
                 @endif
             </div>
-            <button type="submit" class=" bg-green-700 text-black font-bold cursor-pointer px-8 py-2 rounded-md w-fit mt-4">Create</button>
+            <button type="submit" class=" bg-green-700 text-black font-bold cursor-pointer xs:text-[14px] sm:text-base px-8 py-2 rounded-md w-fit mt-4">Create</button>
         </form>
     </div>
 </x-note-form-layout>

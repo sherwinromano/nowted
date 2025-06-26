@@ -1,8 +1,8 @@
-@props(['title', 'datas'])
+@props(['title', 'datas', 'containerClass' => ''])
 
-<div class="flex flex-col gap-7 px-5 py-7 bg-[#1c1c1c] w-[50%]">
+<div class="{{ $containerClass }}">
     <h1 class="source-sans-semibold text-white">{{ $title }}</h1>
-    <ul class="flex flex-col gap-5 overflow-y-scroll scrollbar-hide">
+    <ul class="flex flex-col xs:gap-2 md:gap-5 overflow-y-scroll scrollbar-hide">
         @if(count($datas) === 0) 
             <p class="text-white text-2xl">
                 @if($title === "All notes")
@@ -28,10 +28,10 @@
                         default => 'notes.show'
                     }, $data->id)
                 }}">
-                    <h2 class="source-sans-semibold">{{ $data->title }}</h2>
+                    <h2 class="source-sans-semibold xs:text-base">{{ $data->title }}</h2>
                     <div class="flex gap-2.5">
-                        <h3 class="text-[#7b7b7b] w-fit">{{ $data->created_at->format('m/d/Y') }}</h3>
-                        <p id="note-body" class="text-[#a7a7a7] w-full leading-tight">{{ $data->body }}</p>
+                        <h3 class="text-[#7b7b7b] w-fit xs:text-[14px] md:text-base">{{ $data->created_at->format('m/d/Y') }}</h3>
+                        <p id="note-body" class="text-[#a7a7a7] w-full leading-tight xs:text-[14px] md:text-base">{{ $data->body }}</p>
                     </div>
                 </a>
             </li>

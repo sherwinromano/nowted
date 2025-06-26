@@ -5,6 +5,11 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+
+@theme {
+    --breakpoint-xs: 360px;
+}
+
 @font-face {
     font-family: "source-sans-regular";
     src: url("/public/font/SourceSansPro-Regular.otf") format("opentype");

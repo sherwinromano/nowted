@@ -9,7 +9,7 @@
     }
 @endphp
 
-<ul id="dropdown-list" role="dropdown-list" class="absolute top-full hidden flex-col gap-2 mt-2 right-0 bg-[#333333] text-white p-3 rounded-md w-[30%]">
+<ul id="dropdown-list" role="dropdown-list" class="absolute top-full hidden flex-col gap-2 mt-2 right-0 bg-[#333333] text-white p-3 rounded-md xs:w-[12rem] md:w-[30%]">
     <li class="{{ hideFavoritesSelection($title, $note) ? 'hidden' : 'flex' }}">
         <form action="{{ route('favorites.addToFavorites', $note->id) }}" class="w-full hover:bg-[#1f1f1f] rounded-sm" method="POST">
             @csrf

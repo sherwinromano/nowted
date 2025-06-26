@@ -1,14 +1,14 @@
 @if ($note_title === "All notes") 
 <x-index-layout>
-    <x-note-list 
-        :title="$note_title" 
-        :datas="$notes" 
-    />
-    <div class="flex flex-col text-white gap-2.5 p-8 w-full">
+    <x-slot name="noteList">
+        <x-note-list :title="$note_title" :datas="$notes" containerClass="flex flex-col gap-2 h-full mt-4" />
+    </x-slot>
+    <x-note-list :title="$note_title" :datas="$notes" containerClass="xs:hidden md:flex flex-col gap-7 px-5 py-7 bg-[#1c1c1c] w-[50%]" />
+    <div class="flex flex-col text-white gap-2.5 xs:p-5 md:p-8 h-full w-full">
         <div class="flex justify-between items-center relative">
-            <h1 class="font-semibold text-2xl">{{ $note->title }}</h1>
+            <h1 class="font-semibold xs:text-[1.3rem] sm:text-2xl">{{ $note->title }}</h1>
             <button id="dropdown-button" role="dropdown-button">
-                <svg width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer">
+                <svg class="xs:size-6 md:size-auto" width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer">
                     <g opacity="0.4">
                     <rect x="0.5" y="0.5" width="29" height="29" rx="14.5" stroke="white"/>
                     <path d="M15 15.8334C15.4603 15.8334 15.8334 15.4603 15.8334 15C15.8334 14.5398 15.4603 14.1667 15 14.1667C14.5398 14.1667 14.1667 14.5398 14.1667 15C14.1667 15.4603 14.5398 15.8334 15 15.8334Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -46,7 +46,7 @@
         </div>
         <form action="{{ route('notes.edit', $note->id) }}">
             @csrf
-            <button type="submit" class="bg-green-700 text-black font-bold cursor-pointer px-8 py-2 rounded-md w-fit">Edit</button>
+            <button type="submit" class="bg-green-700 text-black font-bold cursor-pointer xs:text-[14px] sm:text-base px-8 py-2 rounded-md w-fit">Edit</button>
         </form>
     </div>
 </x-index-layout>
@@ -55,12 +55,13 @@
     <x-note-list 
         :title="$note_title" 
         :datas="$favorites" 
+        containerClass="xs:hidden md:flex"
     />
-    <div class="flex flex-col text-white gap-2.5 p-8 w-full">
+    <div class="flex flex-col text-white gap-2.5 xs:p-5 md:p-8 w-full">
         <div class="flex justify-between items-center relative">
-            <h1 class="font-semibold text-2xl">{{ $favorite->title }}</h1>
+            <h1 class="font-semibold xs:text-[1.3rem] sm:text-2xl">{{ $favorite->title }}</h1>
             <button id="dropdown-button" role="dropdown-button">
-                <svg width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer">
+                <svg class="xs:size-6 md:size-auto" width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer">
                     <g opacity="0.4">
                     <rect x="0.5" y="0.5" width="29" height="29" rx="14.5" stroke="white"/>
                     <path d="M15 15.8334C15.4603 15.8334 15.8334 15.4603 15.8334 15C15.8334 14.5398 15.4603 14.1667 15 14.1667C14.5398 14.1667 14.1667 14.5398 14.1667 15C14.1667 15.4603 14.5398 15.8334 15 15.8334Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -102,13 +103,14 @@
 <x-trash-layout>
     <x-note-list 
         :title="$note_title" 
-        :datas="$trashes" 
+        :datas="$trashes"
+        containerClass="xs:hidden md:flex" 
     />
-    <div class="flex flex-col text-white gap-2.5 p-8 w-full">
+    <div class="flex flex-col text-white gap-2.5 xs:p-5 md:p-8 w-full">
         <div class="flex justify-between items-center relative">
-            <h1 class="font-semibold text-2xl">{{ $trash->title }}</h1>
+            <h1 class="font-semibold xs:text-[1.3rem] sm:text-2xl">{{ $trash->title }}</h1>
             <button id="dropdown-button" role="dropdown-button">
-                <svg width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer">
+                <svg class="xs:size-6 md:size-auto" width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer">
                     <g opacity="0.4">
                     <rect x="0.5" y="0.5" width="29" height="29" rx="14.5" stroke="white"/>
                     <path d="M15 15.8334C15.4603 15.8334 15.8334 15.4603 15.8334 15C15.8334 14.5398 15.4603 14.1667 15 14.1667C14.5398 14.1667 14.1667 14.5398 14.1667 15C14.1667 15.4603 14.5398 15.8334 15 15.8334Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -144,20 +146,20 @@
         <p class="text-base text-white">{{ $trash->body }}</p>
     </div>
     <div id="modal" class="absolute inset-0 hidden bg-[#00000080] h-full justify-center items-center">
-        <div class="bg-black text-white p-8 rounded-lg flex flex-col items-center">
-            <h1 class="text-2xl font-bold">Are you sure you want to delete?</h1>
+        <div class="bg-black text-white p-8 rounded-lg flex flex-col items-center xs:mx-4 md:mx-0">
+            <h1 class="xs:text-[1.3rem] md:text-2xl font-bold text-center">Are you sure you want to delete?</h1>
             <p class="text-base mt-2">Deleting this note will be gone forever.</p>
             <div class="flex gap-2 self-stretch mt-8">
                 <form id="delete-btn-accept" action="{{ route('notes.destroy', $trash->note_id) }}" class="w-full" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="w-full bg-red-600 flex justify-center items-center p-2 gap-3.5 cursor-pointer rounded-sm">
-                        <span>
+                        <span class="xs:text-[14px] sm:text-base">
                             Delete 
                         </span>
                     </button>
                 </form>
-                <button id="cancel-btn" class="w-full border border-[#505050] rounded-sm cursor-pointer">Cancel</button>
+                <button id="cancel-btn" class="w-full border border-[#505050] rounded-sm cursor-pointer xs:text-[14px] sm:text-base">Cancel</button>
             </div>
         </div>
     </div>
@@ -166,13 +168,14 @@
 <x-archived-layout>
     <x-note-list 
         :title="$note_title" 
-        :datas="$archives" 
+        :datas="$archives"
+        containerClass="xs:hidden md:flex" 
     />
-    <div class="flex flex-col text-white gap-2.5 p-8 w-full">
+    <div class="flex flex-col text-white gap-2.5 xs:p-5 md:p-8 w-full">
         <div class="flex justify-between items-center relative">
-            <h1 class="font-semibold text-2xl">{{ $archive->title }}</h1>
+            <h1 class="font-semibold xs:text-[1.3rem] sm:text-2xl">{{ $archive->title }}</h1>
             <button id="dropdown-button" role="dropdown-button">
-                <svg width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer">
+                <svg class="xs:size-6 md:size-auto" width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="cursor-pointer">
                     <g opacity="0.4">
                     <rect x="0.5" y="0.5" width="29" height="29" rx="14.5" stroke="white"/>
                     <path d="M15 15.8334C15.4603 15.8334 15.8334 15.4603 15.8334 15C15.8334 14.5398 15.4603 14.1667 15 14.1667C14.5398 14.1667 14.1667 14.5398 14.1667 15C14.1667 15.4603 14.5398 15.8334 15 15.8334Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

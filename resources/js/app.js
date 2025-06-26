@@ -5,6 +5,18 @@ const dropdownButton = document.getElementById('dropdown-button');
 const dropdownList = document.getElementById('dropdown-list');
 const noteBodies = document.querySelectorAll('#note-body');
 
+const sidebarTrigger = document.querySelector("#sidebar-trigger");
+const sidebarClose = document.querySelector("#sidebar-close");
+const sidebarMobile = document.querySelector("#sidebar-mobile");
+
+sidebarTrigger.addEventListener('click', () => {
+    sidebarMobile.classList.replace('hidden', 'flex');
+});
+
+sidebarClose.addEventListener('click', () => {
+    sidebarMobile.classList.replace('flex', 'hidden');
+});
+
 const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
         return text.substring(0, maxLength) + '...';
@@ -40,9 +52,12 @@ deleteBtn.addEventListener('click', () => {
 
 deleteBtnAccept.addEventListener('click', () => {
     modal.classList.replace('flex', 'hidden');
-})
+});
 
 cancelBtn.addEventListener('click', () => {
     modal.classList.replace('flex', 'hidden');
-})
+});
+
+
+
 
